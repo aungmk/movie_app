@@ -9,7 +9,7 @@ part 'the_movie_api.g.dart';
 abstract class TheMovieApi{
   factory TheMovieApi(Dio dio) = _TheMovieApi;
 
-  @get(ENDPOINT_GET_NOW_PLAYING)
+  @GET(ENDPOINT_GET_NOW_PLAYING)
   Future getNowPlayingMovie(
       @Query(PARAM_API_KEY) String apiKey,
       @Query(PARAM_LANGUAGE) String language,
