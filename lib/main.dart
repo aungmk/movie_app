@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/network/retrofit_data_agent_impl.dart';
 import 'package:movie_app/pages/home_page.dart';
 
-import 'network/dio_movie_data_agent_impl.dart';
-import 'network/http_movie_data_agent_impl.dart';
+///import 'network/dio_movie_data_agent_impl.dart';
+///import 'network/http_movie_data_agent_impl.dart';
 
 void main() {
-  RetrofitDataAgentImpl().getNowPlayingMovies(1);
+  //RetrofitDataAgentImpl().getNowPlayingMovies(1);
   runApp(const MyApp());
 }
 

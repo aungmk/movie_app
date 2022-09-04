@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/data.vos/movie_vo.dart';
+import 'package:movie_app/network/api_constants.dart';
 import 'package:movie_app/resources/dimens.dart';
 import 'package:movie_app/widgets/rating_view.dart';
 
 class MovieView extends StatelessWidget {
 
   final Function onTapMovie;
+  final MovieVO mMovie;
 
-  MovieView(this.onTapMovie);
+  MovieView(this.onTapMovie,this.mMovie);
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +24,13 @@ class MovieView extends StatelessWidget {
               onTapMovie();
             },
             child: Image.network(
-              "https://spotlightreport.net/wp-content/uploads/2013/05/the-wolverine-banner-4.jpg",
+              "$IMAGE_BASE_URL${mMovie.posterPath}",
               height: 200,
               fit: BoxFit.cover,
             ),
           ),
           Text(
-            "Hello World",
+            mMovie.title ??"",
             style: TextStyle(
               color: Colors.white,
               fontSize: TEXT_REGULAR_2X,
