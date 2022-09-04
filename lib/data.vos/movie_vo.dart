@@ -11,7 +11,7 @@ class MovieVO {
    String? backDropPath;
 
   @JsonKey(name:"genre_ids")
-   List<int?> genreIds;
+   List<int>? genreIds;
 
   @JsonKey(name:"id")
    int? id;

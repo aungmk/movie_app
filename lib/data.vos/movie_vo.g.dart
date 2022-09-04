@@ -9,7 +9,7 @@ part of 'movie_vo.dart';
 MovieVO _$MovieVOFromJson(Map<String, dynamic> json) => MovieVO(
       json['adult'] as bool?,
       json['backdrop_path'] as String?,
-      (json['genre_ids'] as List<dynamic>).map((e) => e as int?).toList(),
+      (json['genre_ids'] as List<dynamic>?)?.map((e) => e as int).toList(),
       json['id'] as int?,
       json['original_language'] as String?,
       json['original_title'] as String?,

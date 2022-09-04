@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_app/data.vos/movie_vo.dart';
 import 'package:movie_app/network/api_constants.dart';
 import 'package:movie_app/network/movie_data_agent.dart';
 import 'package:movie_app/network/the_movie_api.dart';
@@ -20,14 +21,10 @@ class RetrofitDataAgentImpl extends MovieDataAgent {
   }
 
   @override
-  void getNowPlayingMovies(int page) {
-    mApi?.getNowPlayingMovie(API_KEY, LANGUAGE_EN_US, page.toString())
-        .then((response){
-
-      response.results?.forEach((movie) => debugPrint(movie.toString()));
-
-    }).catchError((error){
-      debugPrint("error ...... ${error.toString()}");
-    });
+  Future<List<MovieVO>>? getNowPlayingMovies(int page) {
+    return mApi?.getNowPlayingMovie(API_KEY, LANGUAGE_EN_US, page.toString())
+        .asStream()
+        .map((response) => response.results??[])
+        .first;
   }
 }
