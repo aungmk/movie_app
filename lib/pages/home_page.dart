@@ -1,5 +1,7 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_app/data.vos/actor_vo.dart';
+import 'package:movie_app/data.vos/genre_vo.dart';
 import 'package:movie_app/data.vos/models/movie_model.dart';
 import 'package:movie_app/data.vos/models/movie_model_impl.dart';
 import 'package:movie_app/data.vos/movie_vo.dart';
@@ -35,11 +37,16 @@ class _HomePageState extends State<HomePage> {
   ];
 
   List<MovieVO>? mNowPlayingMovieList;
+  List<MovieVO>? mPopularMoviesList;
+  List<GenreVO>? mGenreList;
+  List<ActorVO>? mActors;
+  List<MovieVO>? mShowCaseMovieList;
+  List<MovieVO>? mMoviesByGenreList;
 
   @override
   void initState(){
     super.initState();
-
+///Now Playing Movies
     mMovieModel.getNowPlayingMovies(1)
     ?.then((movieList){
       setState(() {
@@ -49,6 +56,59 @@ class _HomePageState extends State<HomePage> {
       debugPrint(error.toString());
     });
 
+    ///Popular movie for banner
+    mMovieModel.getPopularMovie(1)
+        ?.then((movieList){
+      setState(() {
+        mPopularMoviesList = movieList;
+      });
+    }).catchError((error){
+      debugPrint(error.toString());
+    });
+
+    ///Genres and movie by choose genres
+    mMovieModel.getGenres()
+        ?.then((genreList){
+      setState(() {
+        mGenreList = genreList;
+        ///movies by genres
+        _getMovieByGenreAndRefresh(mGenreList?.first.id ??0);
+      });
+    }).catchError((error){
+      debugPrint(error.toString());
+    });
+
+    ///Showcase
+    mMovieModel.getTopRatedMovies(1)
+        ?.then((movieList){
+      setState(() {
+        mShowCaseMovieList = movieList;
+      });
+    }).catchError((error){
+      debugPrint(error.toString());
+    });
+
+    ///Actors
+    mMovieModel.getActors(1)
+        ?.then((actorList){
+      setState(() {
+        mActors = actorList;
+      });
+    }).catchError((error){
+      debugPrint(error.toString());
+    });
+
+  }
+
+  void _getMovieByGenreAndRefresh(int genreId) {
+    mMovieModel.getMoviesByGenre(genreId)
+        ?.then((moviesByGenre){
+      setState(() {
+        mMoviesByGenreList = moviesByGenre;
+      });
+    }).catchError((error){
+      debugPrint(error.toString());
+    });
   }
 
   @override
