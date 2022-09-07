@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/data.vos/actor_vo.dart';
+import 'package:movie_app/network/api_constants.dart';
 
 import '../../resources/colors.dart';
 import '../../resources/dimens.dart';
 
 class ActorView extends StatelessWidget {
-
+  final ActorVO? mActor;
+  ActorView({this.mActor});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,9 @@ class ActorView extends StatelessWidget {
         child: Stack(
           children: [
             Positioned.fill(
-                child: ActorImageView(),
+                child: ActorImageView(
+                  mActorImageUrl: mActor?.profilePath,
+                ),
             ),
             Padding(
               padding: const EdgeInsets.all(MARGIN_MEDIUM),
@@ -26,7 +31,9 @@ class ActorView extends StatelessWidget {
             ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: ActorNameAndLikeView(),
+              child: ActorNameAndLikeView(
+                mActorName: mActor?.name,
+              ),
             )
           ],
         )
@@ -37,12 +44,14 @@ class ActorView extends StatelessWidget {
 }
 
 class ActorImageView extends StatelessWidget {
+  final String? mActorImageUrl;
 
+  ActorImageView({this.mActorImageUrl});
 
   @override
   Widget build(BuildContext context) {
     return Image.network(
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtWTP6dkQSIJEYSw68iPaOnUEnD59Ci9mEXw&usqp=CAU",
+      "$IMAGE_BASE_URL$mActorImageUrl",
     fit: BoxFit.cover,
     );
   }
@@ -61,7 +70,8 @@ class FavouriteButtonView extends StatelessWidget {
 }
 
 class ActorNameAndLikeView extends StatelessWidget {
-
+  final String? mActorName;
+  ActorNameAndLikeView({this.mActorName});
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +84,7 @@ class ActorNameAndLikeView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text("Leonardo decaprio",
+          Text(mActorName ??"",
           style: TextStyle(
             color: Colors.white,
             fontSize: TEXT_REGULAR,

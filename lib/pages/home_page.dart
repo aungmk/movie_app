@@ -27,14 +27,14 @@ class _HomePageState extends State<HomePage> {
 
   MovieModel mMovieModel = MovieModelImpl();
 
-  List<String> genreList = [
+  /*List<String> genreList = [
     "Action",
     "Adventure",
     "Horror",
     "Comedy",
     "Thriller",
     "Drama"
-  ];
+  ];*/
 
   List<MovieVO>? mNowPlayingMovieList;
   List<MovieVO>? mPopularMoviesList;
@@ -151,14 +151,18 @@ class _HomePageState extends State<HomePage> {
               CheckMovieShowTimeSectionView(),
               SizedBox(height: MARGIN_LARGE),
               GenreSectionView(
-                      () => _navigateToMovieDetailScreen(context),
-                  genreList: genreList),
+                genreList: mGenreList,
+                  onTapMovie: () => _navigateToMovieDetailScreen(context),
+                  onTapGenre: (genreId) => _getMovieByGenreAndRefresh(genreId),
+                  mMoviesByGenreList: mMoviesByGenreList,
+              ),
               SizedBox(height: MARGIN_LARGE),
-              ShowCasesSection(),
+              ShowCasesSection(mShowCaseMovieList),
               SizedBox(height: MARGIN_LARGE),
               ActorAndCreatorSectionView(
                   BEST_ACTOR_TITLE,
-                  BEST_ACTOR_SEE_MORE
+                  BEST_ACTOR_SEE_MORE,
+                mActorsList: mActors,
               ),
               SizedBox(height: MARGIN_LARGE)
             ],
@@ -177,12 +181,16 @@ class _HomePageState extends State<HomePage> {
 
 class GenreSectionView extends StatelessWidget {
 
-  const GenreSectionView(this.onTapMovie,{
-    required this.genreList,
-  });
-
-  final List<String> genreList;
+  final List<GenreVO>? genreList;
+  final List<MovieVO>? mMoviesByGenreList;
   final Function onTapMovie;
+  final Function(int) onTapGenre;
+
+  GenreSectionView(
+  {this.genreList,
+    this.mMoviesByGenreList,
+    required this.onTapMovie,
+    required this.onTapGenre});
 
   @override
   Widget build(BuildContext context) {
@@ -193,18 +201,21 @@ class GenreSectionView extends StatelessWidget {
             horizontal: MARGIN_MEDIUM_2,
           ),
           child: DefaultTabController(
-            length: genreList.length,
+            length: genreList?.length ??0,
             child: TabBar(
+              onTap: (index) {
+                onTapGenre(genreList![index].id ??0);
+              },
               isScrollable: true,
               indicatorColor: PLAY_BUTTON_COLOR,
               unselectedLabelColor: HOME_SCREEE_LIST_TITLE_COLOR,
               tabs: genreList
-                  .map(
+                  ?.map(
                     (genre) =>
                     Tab(
-                      child: Text(genre),
+                      child: Text(genre.name ??""),
                     ),
-              ).toList(),
+              ).toList() ??[],
             ),
           ),
         ),
@@ -218,6 +229,7 @@ class GenreSectionView extends StatelessWidget {
                   () {
                 onTapMovie();
               },
+              movieList: mMoviesByGenreList,
             )
         ),
       ],
@@ -270,6 +282,9 @@ class CheckMovieShowTimeSectionView extends StatelessWidget {
 
 
 class ShowCasesSection extends StatelessWidget {
+  final List<MovieVO>? mShowCaseMovieList;
+
+  ShowCasesSection(this.mShowCaseMovieList);
 
 
   @override
@@ -286,14 +301,15 @@ class ShowCasesSection extends StatelessWidget {
         SizedBox(height: MARGIN_MEDIUM_2),
         Container(
           height: SHOW_CASES_HEIGHT,
-          child: ListView(
+          child: (mShowCaseMovieList !=null)
+          ? ListView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.only(left: MARGIN_MEDIUM_2),
-            children: [
-              ShowCaseView(),
-              ShowCaseView(),
-              ShowCaseView(),
-            ],
+            children: mShowCaseMovieList
+                ?.map((showCaseMovie) => ShowCaseView(showCaseMovie))
+              .toList() ??[],
+          )
+              : Center(child: CircularProgressIndicator(),
           ),
         ),
       ],

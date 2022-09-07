@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/data.vos/movie_vo.dart';
+import 'package:movie_app/network/api_constants.dart';
 import 'package:movie_app/resources/dimens.dart';
 import 'package:movie_app/widgets/play_button_view.dart';
 import 'package:movie_app/widgets/title_text.dart';
 
 class ShowCaseView extends StatelessWidget {
+  final MovieVO? mMovie;
 
+  ShowCaseView(this.mMovie);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,7 @@ class ShowCaseView extends StatelessWidget {
         children:[
           Positioned.fill(
               child: Image.network(
-                "https://spotlightreport.net/wp-content/uploads/2013/05/the-wolverine-banner-4.jpg",
+                "$IMAGE_BASE_URL${mMovie?.posterPath}",
               fit: BoxFit.cover,
               ),
           ),
@@ -31,15 +35,14 @@ class ShowCaseView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text("Passengers",
+                  Text(mMovie?.title ??'',
                   style: TextStyle(color: Colors.white,
                     fontSize: TEXT_REGULAR_3X,
                     fontWeight: FontWeight.w600,
                   ),
                   ),
                   SizedBox(height: MARGIN_MEDIUM),
-                  TitleText("15 December 2016")
-
+                  TitleText(mMovie?.releaseDate ??'')
 
                 ],
               ),
