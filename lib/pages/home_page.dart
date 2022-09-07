@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState(){
     super.initState();
-///Now Playing Movies
+    ///Now Playing Movies
     mMovieModel.getNowPlayingMovies(1)
     ?.then((movieList){
       setState(() {
@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BannerSectionView(),
+              BannerSectionView(mPopularMovies: mPopularMoviesList?.take(8).toList(),),
               SizedBox(height: MARGIN_LARGE),
               BestPopularMoviesAndSerialsSectionView(
                   () => _navigateToMovieDetailScreen(context),
@@ -360,6 +360,10 @@ class HorizontalMoviesListView extends StatelessWidget {
 
 class BannerSectionView extends StatefulWidget {
 
+  final  List<MovieVO>? mPopularMovies;
+
+  BannerSectionView({this.mPopularMovies});
+
 
   @override
   State<BannerSectionView> createState() => _BannerSectionViewState();
@@ -383,15 +387,13 @@ class _BannerSectionViewState extends State<BannerSectionView> {
                 _position = page.toDouble();
               });
             },
-            children: [
-              BannerView(),
-              BannerView(),
-            ],
-          ),
+            children: widget.mPopularMovies?.map((popularMovie)  => BannerView(
+              mMovie: popularMovie,
+            )).toList() ??[]),
         ),
         SizedBox(height: MARGIN_MEDIUM_2),
         DotsIndicator(
-          dotsCount: 2,
+          dotsCount: widget.mPopularMovies?.length ??0,
           position: _position,
           decorator: DotsDecorator(
             color: HOME_SCREE_BANNER_DOTS_INACTIVE_COLOR,
