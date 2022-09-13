@@ -41,7 +41,7 @@ abstract class TheMovieApi{
       @Query(PARAM_LANGUAGE) String language,
       );
 
-  @GET(ENDPOINT_GET_MOVIES_BY_GENRE)
+  @GET("$ENDPOINT_GET_MOVIES_BY_GENRE/{genre_id}")
   Future<GetMoviesByGenreResponse> getMoviesByGenre(
       @Path("genre_id") String genreId,
       @Query(PARAM_API_KEY) String apiKey,

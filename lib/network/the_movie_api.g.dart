@@ -89,7 +89,7 @@ class _TheMovieApi implements TheMovieApi {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<GetGenresResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/3/movie/list',
+                .compose(_dio.options, '/3/genre/movie/list',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = GetGenresResponse.fromJson(_result.data!);
@@ -109,7 +109,7 @@ class _TheMovieApi implements TheMovieApi {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<GetMoviesByGenreResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/3/list',
+                .compose(_dio.options, '/3/list/${genreId}',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = GetMoviesByGenreResponse.fromJson(_result.data!);
