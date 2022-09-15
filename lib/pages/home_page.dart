@@ -113,7 +113,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return (mNowPlayingMovieList != null)
+        ? Scaffold(
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: PRIMARY_COLOR,
@@ -169,7 +170,8 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-    );
+    ) :
+        Center(child: CircularProgressIndicator());
   }
 
   void _navigateToMovieDetailScreen(BuildContext context, int movieId) {

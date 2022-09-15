@@ -120,11 +120,11 @@ class AboutFilmSectionView extends StatelessWidget {
         ),
         SizedBox(height: MARGIN_MEDIUM_2),
         AboutFilmInfoView("Type",
-          mMovie?.genres?.map((genre) => genre.name).join(","),
+          mMovie?.genres?.map((genre) => genre.name ??"").join(","),
         ),
         SizedBox(height: MARGIN_MEDIUM_2),
         AboutFilmInfoView("Production",
-          mMovie?.productionCountries?.map((country) => country.name).join(","),
+          mMovie?.productionCountries?.map((country) => country.name ??"").join(","),
         ),
         SizedBox(height: MARGIN_MEDIUM_2),
         AboutFilmInfoView("Premiere",mMovie?.releaseDate??""
@@ -139,7 +139,7 @@ class AboutFilmSectionView extends StatelessWidget {
 
 class AboutFilmInfoView extends StatelessWidget {
   final String label;
-  final String description;
+  final String? description;
 
   AboutFilmInfoView(this.label,this.description);
 
@@ -160,7 +160,7 @@ class AboutFilmInfoView extends StatelessWidget {
         ),
         SizedBox(width: MARGIN_CARD_MEDIUM_2),
         Expanded(
-          child: Text(description,
+          child: Text(description ??"",
               style: TextStyle(
               color: Colors.white,
                 fontSize: MARGIN_MEDIUM_2,
@@ -175,7 +175,7 @@ class AboutFilmInfoView extends StatelessWidget {
 
 class TrailerSection extends StatelessWidget {
 
-  final MovieVO mMovie;
+  final MovieVO? mMovie;
 
   TrailerSection(this.mMovie);
 
@@ -185,10 +185,10 @@ class TrailerSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         MovieTimeAndGenreView(
-            genreList: mMovie.genres.map((genre) => genre.name).toList(),
-        ),
+            genreList:mMovie?.genres?.map((genre) => genre.name ?? "").toList()
+             ),
         SizedBox(height: MARGIN_MEDIUM_3),
-        StorylineView(mMovie.overview ??""),
+        StorylineView(mMovie?.overview ??""),
         SizedBox(height: MARGIN_MEDIUM_2),
         Row(
           children: [
@@ -294,7 +294,17 @@ class MovieTimeAndGenreView extends StatelessWidget {
     required this.genreList,
   }) : super(key: key);
 
-  final List<String> genreList;
+  final List<String>? genreList;
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      alignment: WrapAlignment.start,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      direction: Axis.horizontal,
+      children: _createMovieTimeAndGenreWidget(),
+    );
+  }
 
   List<Widget> _createMovieTimeAndGenreWidget(){
 
@@ -315,7 +325,7 @@ class MovieTimeAndGenreView extends StatelessWidget {
       SizedBox(width: MARGIN_MEDIUM),
     ];
 
-    widgets.addAll(genreList.map((genre) => GenreChipView(genre)).toList());
+    widgets.addAll(genreList?.map((genre) => GenreChipView(genre)) .toList() ??[]);
 
     widgets.add(
         Icon(Icons.favorite_border,
@@ -323,16 +333,6 @@ class MovieTimeAndGenreView extends StatelessWidget {
         ),
     );
     return widgets;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      alignment: WrapAlignment.start,
-      crossAxisAlignment: WrapCrossAlignment.center,
-      direction: Axis.horizontal,
-      children: _createMovieTimeAndGenreWidget(),
-    );
   }
 }
 
@@ -421,7 +421,7 @@ class MovieDetailSliverAppBar extends StatelessWidget {
 }
 
 class MovieDetailAppBarInfoView extends StatelessWidget {
-  final MovieVO mMovie;
+  final MovieVO? mMovie;
   MovieDetailAppBarInfoView(this.mMovie);
 
   @override
@@ -432,7 +432,7 @@ class MovieDetailAppBarInfoView extends StatelessWidget {
       children: [
         Row(
           children: [
-            MovieDetailYearView(mMovie.releaseDate?.substring(0,4) ??""),
+            MovieDetailYearView(mMovie?.releaseDate?.substring(0,4) ??""),
             Spacer(),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -442,13 +442,13 @@ class MovieDetailAppBarInfoView extends StatelessWidget {
                   children: [
                     RatingView(),
                     SizedBox(height: MARGIN_SMALL),
-                    TitleText("${mMovie.voteCount} VOTES"),
+                    TitleText("${mMovie?.voteCount} VOTES"),
                     SizedBox(height: MARGIN_MEDIUM_2)
                   ],
                 ),
                 SizedBox(width: MARGIN_CARD_MEDIUM_2),
                 Text(
-                  "${mMovie.voteAverage}",
+                  "${mMovie?.voteAverage}",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: MOVIE_DETAIL_RATING_TEXT_HEIGHT,
@@ -460,7 +460,7 @@ class MovieDetailAppBarInfoView extends StatelessWidget {
         ),
         SizedBox(height: MARGIN_MEDIUM),
         Text(
-          mMovie.title ??"",
+          mMovie?.title ??"",
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
