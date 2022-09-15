@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/data.vos/actor_vo.dart';
+import 'package:movie_app/data.vos/base_actor_vo.dart';
 import 'package:movie_app/pages/viewitems/actor_view.dart';
 import 'package:movie_app/resources/colors.dart';
 import 'package:movie_app/resources/dimens.dart';
@@ -9,7 +10,7 @@ class ActorAndCreatorSectionView extends StatelessWidget {
   final String titleText;
   final String seeMoreText;
   final bool seeMoreButtonVisibility;
-  final List<ActorVO>? mActorsList;
+  final List<BaseActorVO>? mActorsList;
 
   ActorAndCreatorSectionView(
         this.titleText,

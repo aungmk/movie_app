@@ -145,14 +145,14 @@ class _HomePageState extends State<HomePage> {
               BannerSectionView(mPopularMovies: mPopularMoviesList?.take(8).toList(),),
               SizedBox(height: MARGIN_LARGE),
               BestPopularMoviesAndSerialsSectionView(
-                  () => _navigateToMovieDetailScreen(context),
+                  (movieId) => _navigateToMovieDetailScreen(context,movieId),
                   mNowPlayingMovieList),
               SizedBox(height: MARGIN_LARGE),
               CheckMovieShowTimeSectionView(),
               SizedBox(height: MARGIN_LARGE),
               GenreSectionView(
                 genreList: mGenreList,
-                  onTapMovie: () => _navigateToMovieDetailScreen(context),
+                  onTapMovie: (movieId) => _navigateToMovieDetailScreen(context,movieId),
                   onTapGenre: (genreId) => _getMovieByGenreAndRefresh(genreId),
                   mMoviesByGenreList: mMoviesByGenreList,
               ),
@@ -172,9 +172,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _navigateToMovieDetailScreen(BuildContext context) {
+  void _navigateToMovieDetailScreen(BuildContext context, int movieId) {
     Navigator.push(context, MaterialPageRoute(
-        builder: (context) => MovieDetailPage()
+        builder: (context) => MovieDetailPage(movieId)
     ),);
   }
 }
@@ -183,7 +183,7 @@ class GenreSectionView extends StatelessWidget {
 
   final List<GenreVO>? genreList;
   final List<MovieVO>? mMoviesByGenreList;
-  final Function onTapMovie;
+  final Function(int) onTapMovie;
   final Function(int) onTapGenre;
 
   GenreSectionView(
@@ -226,8 +226,8 @@ class GenreSectionView extends StatelessWidget {
               bottom: MARGIN_LARGE,
             ),
             child: HorizontalMoviesListView(
-                  () {
-                onTapMovie();
+                  (movieId) {
+                onTapMovie(movieId ??0);
               },
               movieList: mMoviesByGenreList,
             )
@@ -318,7 +318,7 @@ class ShowCasesSection extends StatelessWidget {
 }
 
 class BestPopularMoviesAndSerialsSectionView extends StatelessWidget {
-  final Function onTapMovie;
+  final Function(int) onTapMovie;
   final List<MovieVO>? mNowPlayingMovieList;
 
   BestPopularMoviesAndSerialsSectionView(this.onTapMovie,this.mNowPlayingMovieList);
@@ -336,8 +336,8 @@ class BestPopularMoviesAndSerialsSectionView extends StatelessWidget {
         ),
         SizedBox(height: MARGIN_MEDIUM),
         HorizontalMoviesListView(
-                () {
-              onTapMovie();
+                (movieId) {
+              onTapMovie(movieId ??0);
             }, movieList: mNowPlayingMovieList,
         )
       ]
@@ -348,7 +348,7 @@ class BestPopularMoviesAndSerialsSectionView extends StatelessWidget {
 
 class HorizontalMoviesListView extends StatelessWidget {
 
-  final Function onTapMovie;
+  final Function(int?) onTapMovie;
   final List<MovieVO>? movieList;
 
   HorizontalMoviesListView(this.onTapMovie, {this.movieList});
@@ -363,8 +363,8 @@ class HorizontalMoviesListView extends StatelessWidget {
         itemCount: movieList?.length,
         itemBuilder: (BuildContext context, int index) {
           return MovieView(
-                  () {
-                this.onTapMovie();
+                  (movieId) {
+                onTapMovie(movieId);
               },
             movieList![index]
           );

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/data.vos/actor_vo.dart';
+import 'package:movie_app/data.vos/base_actor_vo.dart';
 import 'package:movie_app/network/api_constants.dart';
 
 import '../../resources/colors.dart';
 import '../../resources/dimens.dart';
 
 class ActorView extends StatelessWidget {
-  final ActorVO? mActor;
+  final BaseActorVO? mActor;
   ActorView({this.mActor});
 
   @override

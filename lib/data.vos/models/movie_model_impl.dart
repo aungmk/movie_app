@@ -1,4 +1,5 @@
 import 'package:movie_app/data.vos/actor_vo.dart';
+import 'package:movie_app/data.vos/credit_vo.dart';
 import 'package:movie_app/data.vos/genre_vo.dart';
 import 'package:movie_app/data.vos/movie_vo.dart';
 import 'package:movie_app/network/movie_data_agent.dart';
@@ -48,4 +49,16 @@ class MovieModelImpl extends MovieModel{
   Future<List<ActorVO>>? getActors(int page){
     return mDataAgent.getActors(page);
   }
+
+  @override
+  Future<List<CreditVO>>? getCreditsByMovie(int movieId) {
+    return mDataAgent.getCreditsByMovie(movieId);
+  }
+
+  @override
+  Future<MovieVO>? getMovieDetails(int movieId) {
+    return mDataAgent.getMovieDetails(movieId);
+  }
+
+
 }

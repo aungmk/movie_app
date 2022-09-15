@@ -9,6 +9,8 @@ const String ENDPOINT_GET_TOP_RATED="/3/movie/top_rated";
 const String ENDPOINT_GET_GENRES="/3/genre/movie/list";
 const String ENDPOINT_GET_MOVIES_BY_GENRE="/3/list";
 const String ENDPOINT_GET_ACTORS="/3/person/popular";
+const String ENDPOINT_GET_MOVIES_DETAILS="/3/movie";
+const String ENDPOINT_GET_CREDITS_BY_MOVIE="/3/movie";
 
 /// Parameters
 const String PARAM_API_KEY="api_key";
