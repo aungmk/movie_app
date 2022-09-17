@@ -345,6 +345,7 @@ class GenreChipView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Chip(
           backgroundColor: MOVIE_DETAIL_SCREEN_CHIP_BACKGROUND_COLOR,

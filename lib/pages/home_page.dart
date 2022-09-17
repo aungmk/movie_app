@@ -206,7 +206,7 @@ class GenreSectionView extends StatelessWidget {
             length: genreList?.length ??0,
             child: TabBar(
               onTap: (index) {
-                onTapGenre(genreList![index].id ??0);
+                onTapGenre(genreList?[index].id ??0);
               },
               isScrollable: true,
               indicatorColor: PLAY_BUTTON_COLOR,
