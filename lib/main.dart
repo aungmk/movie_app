@@ -1,11 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:movie_app/data.vos/actor_vo.dart';
+import 'package:movie_app/data.vos/genre_vo.dart';
+import 'package:movie_app/data.vos/movie_vo.dart';
 //import 'package:movie_app/network/retrofit_data_agent_impl.dart';
 import 'package:movie_app/pages/home_page.dart';
+import 'package:movie_app/persistence/hive_constants.dart';
 
 ///import 'network/dio_movie_data_agent_impl.dart';
 ///import 'network/http_movie_data_agent_impl.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+
+  Hive.registerAdapter(ActorVOAdapter());
+  Hive.registerAdapter(BaseActorVOAdapter());
+  Hive.registerAdapter(CollectionVOAdapter());
+  Hive.registerAdapter(CreditVOAdapter());
+  Hive.registerAdapter(DateVOAdapter());
+  Hive.registerAdapter(GenreVOAdapter());
+  Hive.registerAdapter(MovieVOAdapter());
+  Hive.registerAdapter(ProductionCompanyVOAdapter());
+  Hive.registerAdapter(ProductionCountryVOAdapter());
+  Hive.registerAdapter(SpokenLanguageVOAdapter());
+
+  await Hive.openBox<ActorVO>(BOX_NAME_ACTOR_VO);
+  await Hive.openBox<MovieVO>(BOX_NAME_MOVIE_VO);
+  await Hive.openBox<GenreVO>(BOX_NAME_GENRE_VO);
   //RetrofitDataAgentImpl().getNowPlayingMovies(1);
   runApp(const MyApp());
 }
