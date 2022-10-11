@@ -43,13 +43,16 @@ class MovieVOAdapter extends TypeAdapter<MovieVO> {
       fields[23] as bool?,
       fields[24] as double?,
       fields[25] as int?,
+      isPopular: fields[27] as bool?,
+      isNowPlaying: fields[26] as bool?,
+      isTopRated: fields[28] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, MovieVO obj) {
     writer
-      ..writeByte(26)
+      ..writeByte(29)
       ..writeByte(0)
       ..write(obj.adult)
       ..writeByte(1)
@@ -101,7 +104,13 @@ class MovieVOAdapter extends TypeAdapter<MovieVO> {
       ..writeByte(24)
       ..write(obj.voteAverage)
       ..writeByte(25)
-      ..write(obj.voteCount);
+      ..write(obj.voteCount)
+      ..writeByte(26)
+      ..write(obj.isNowPlaying)
+      ..writeByte(27)
+      ..write(obj.isPopular)
+      ..writeByte(28)
+      ..write(obj.isTopRated);
   }
 
   @override
@@ -157,6 +166,9 @@ MovieVO _$MovieVOFromJson(Map<String, dynamic> json) => MovieVO(
       json['video'] as bool?,
       (json['vote_average'] as num?)?.toDouble(),
       json['vote_count'] as int?,
+      isPopular: json['isPopular'] as bool?,
+      isNowPlaying: json['isNowPlaying'] as bool?,
+      isTopRated: json['isTopRated'] as bool?,
     );
 
 Map<String, dynamic> _$MovieVOToJson(MovieVO instance) => <String, dynamic>{
@@ -186,4 +198,7 @@ Map<String, dynamic> _$MovieVOToJson(MovieVO instance) => <String, dynamic>{
       'video': instance.video,
       'vote_average': instance.voteAverage,
       'vote_count': instance.voteCount,
+      'isNowPlaying': instance.isNowPlaying,
+      'isPopular': instance.isPopular,
+      'isTopRated': instance.isTopRated,
     };

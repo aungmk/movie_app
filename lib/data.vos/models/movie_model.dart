@@ -4,6 +4,7 @@ import 'package:movie_app/data.vos/genre_vo.dart';
 import 'package:movie_app/data.vos/movie_vo.dart';
 
 abstract class MovieModel {
+  //Network
   Future<List<MovieVO>>? getNowPlayingMovies(int page);
   Future<List<MovieVO>>? getPopularMovie(int page);
   Future<List<MovieVO>>? getTopRatedMovies(int page);
@@ -12,5 +13,13 @@ abstract class MovieModel {
   Future<List<ActorVO>>? getActors(int page);
   Future<MovieVO>? getMovieDetails(int movieId);
   Future<List<CreditVO>>? getCreditsByMovie(int movieId);
+
+  //Database
+  Future<List<MovieVO>>? getNowPlayingMoviesFromDatabase();
+  Future<List<MovieVO>>? getPopularMovieFromDatabase();
+  Future<List<MovieVO>>? getTopRatedMoviesFromDatabase();
+  Future<List<GenreVO>>? getGenresFromDatabase();
+  Future<List<ActorVO>>? getAllActorsFromDatabase();
+  Future<MovieVO>? getMovieDetailsFromDatabase(int movieId);
 
 }

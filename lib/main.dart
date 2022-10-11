@@ -7,6 +7,14 @@ import 'package:movie_app/data.vos/movie_vo.dart';
 import 'package:movie_app/pages/home_page.dart';
 import 'package:movie_app/persistence/hive_constants.dart';
 
+import 'data.vos/base_actor_vo.dart';
+import 'data.vos/collection_vo.dart';
+import 'data.vos/credit_vo.dart';
+import 'data.vos/date_vo.dart';
+import 'data.vos/production_company_vo.dart';
+import 'data.vos/production_country_vo.dart';
+import 'data.vos/spoken_language_vo.dart';
+
 ///import 'network/dio_movie_data_agent_impl.dart';
 ///import 'network/http_movie_data_agent_impl.dart';
 

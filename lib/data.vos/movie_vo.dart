@@ -91,6 +91,15 @@ class MovieVO {
   @JsonKey(name:"vote_count")
    int? voteCount;
 
+  @HiveField(26)
+  bool? isNowPlaying;
+
+  @HiveField(27)
+  bool? isPopular;
+
+  @HiveField(28)
+  bool? isTopRated;
+
 
   MovieVO(
       this.adult,
@@ -118,7 +127,11 @@ class MovieVO {
       this.title,
       this.video,
       this.voteAverage,
-      this.voteCount);
+      this.voteCount,{
+        this.isPopular,
+        this.isNowPlaying,
+        this.isTopRated,
+  });
 
   factory MovieVO.fromJson(Map<String,dynamic> json) => _$MovieVOFromJson(json);
 

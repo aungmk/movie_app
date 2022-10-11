@@ -27,15 +27,6 @@ class _HomePageState extends State<HomePage> {
 
   MovieModel mMovieModel = MovieModelImpl();
 
-  /*List<String> genreList = [
-    "Action",
-    "Adventure",
-    "Horror",
-    "Comedy",
-    "Thriller",
-    "Drama"
-  ];*/
-
   List<MovieVO>? mNowPlayingMovieList;
   List<MovieVO>? mPopularMoviesList;
   List<GenreVO>? mGenreList;
@@ -56,8 +47,28 @@ class _HomePageState extends State<HomePage> {
       debugPrint(error.toString());
     });
 
+    ///Now Playing Movies from database
+    mMovieModel.getNowPlayingMoviesFromDatabase()
+        ?.then((movieList){
+      setState(() {
+        mNowPlayingMovieList = movieList;
+      });
+    }).catchError((error){
+      debugPrint(error.toString());
+    });
+
     ///Popular movie for banner
     mMovieModel.getPopularMovie(1)
+        ?.then((movieList){
+      setState(() {
+        mPopularMoviesList = movieList;
+      });
+    }).catchError((error){
+      debugPrint(error.toString());
+    });
+
+    ///Popular movie for banner from database
+    mMovieModel.getPopularMovieFromDatabase()
         ?.then((movieList){
       setState(() {
         mPopularMoviesList = movieList;
@@ -78,6 +89,18 @@ class _HomePageState extends State<HomePage> {
       debugPrint(error.toString());
     });
 
+    ///Genres and movie by choose genres from database
+    mMovieModel.getGenresFromDatabase()
+        ?.then((genreList){
+      setState(() {
+        mGenreList = genreList;
+        ///movies by genres
+        _getMovieByGenreAndRefresh(mGenreList?.first.id ??0);
+      });
+    }).catchError((error){
+      debugPrint(error.toString());
+    });
+
     ///Showcase
     mMovieModel.getTopRatedMovies(1)
         ?.then((movieList){
@@ -88,8 +111,28 @@ class _HomePageState extends State<HomePage> {
       debugPrint(error.toString());
     });
 
+    ///Showcase from database
+    mMovieModel.getTopRatedMoviesFromDatabase()
+        ?.then((movieList){
+      setState(() {
+        mShowCaseMovieList = movieList;
+      });
+    }).catchError((error){
+      debugPrint(error.toString());
+    });
+
     ///Actors
     mMovieModel.getActors(1)
+        ?.then((actorList){
+      setState(() {
+        mActors = actorList;
+      });
+    }).catchError((error){
+      debugPrint(error.toString());
+    });
+
+    ///Actors from database
+    mMovieModel.getAllActorsFromDatabase()
         ?.then((actorList){
       setState(() {
         mActors = actorList;
