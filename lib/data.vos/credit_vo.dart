@@ -65,8 +65,7 @@ class CreditVO extends BaseActorVO{
       this.order,
       String name,
       String profilePath,
-      )
-  :super (name,profilePath);
+      ) :super (name,profilePath);
 
   factory CreditVO.fromJson(Map<String,dynamic> json) =>
       _$CreditVOFromJson(json);
@@ -76,6 +75,7 @@ class CreditVO extends BaseActorVO{
   bool isActor(){
     return knowForDepartment == KNOW_FOR_DEPARTMENT_ACTING;
   }
+
   bool isCreator(){
     return knowForDepartment != KNOW_FOR_DEPARTMENT_ACTING;
   }

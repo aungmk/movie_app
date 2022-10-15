@@ -48,6 +48,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       });
     });
 
+    ///Get credit by movie network
+
     mMovieModel.getCreditsByMovie(widget.movieId)
         ?.then((creditsList) {
       setState(() {
