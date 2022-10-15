@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         mGenreList = genreList;
         ///movies by genres
-        _getMovieByGenreAndRefresh(mGenreList?.first.id ??0);
+        _getMovieByGenreAndRefresh(mGenreList?.first.id ?? 0);
       });
     }).catchError((error){
       debugPrint(error.toString());
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         mGenreList = genreList;
         ///movies by genres
-        _getMovieByGenreAndRefresh(mGenreList?.first.id ??0);
+        _getMovieByGenreAndRefresh(mGenreList?.first.id ?? 0);
       });
     }).catchError((error){
       debugPrint(error.toString());
@@ -144,6 +144,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _getMovieByGenreAndRefresh(int genreId) {
+    debugPrint("log $genreId");
     mMovieModel.getMoviesByGenre(genreId)
         ?.then((moviesByGenre){
       setState(() {

@@ -16,6 +16,7 @@ const String ENDPOINT_GET_CREDITS_BY_MOVIE="/3/movie";
 const String PARAM_API_KEY="api_key";
 const String PARAM_LANGUAGE="language";
 const String PARAM_PAGE="page";
+const String PARAM_GENRE_ID = "with_genres";
 
 /// Constant Values
 const String API_KEY="005570f6a5f06a61a96be6636d77e240";

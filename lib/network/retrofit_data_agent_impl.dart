@@ -58,7 +58,7 @@ class RetrofitDataAgentImpl extends MovieDataAgent {
   Future<List<MovieVO>>? getMoviesByGenre(int genreId){
     return mApi?.getMoviesByGenre(genreId.toString(),API_KEY, LANGUAGE_EN_US)
         .asStream()
-        .map((response) => response.items??[])
+        .map((response) => response.results??[])
         .first;
   }
 
