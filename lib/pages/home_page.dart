@@ -37,43 +37,43 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState(){
     super.initState();
-    ///Now Playing Movies
-    mMovieModel.getNowPlayingMovies(1)
-    ?.then((movieList){
-      setState(() {
-        mNowPlayingMovieList = movieList;
-      });
-    }).catchError((error){
-      debugPrint(error.toString());
-    });
+    // ///Now Playing Movies
+    // mMovieModel.getNowPlayingMovies(1)
+    // ?.then((movieList){
+    //   setState(() {
+    //     mNowPlayingMovieList = movieList;
+    //   });
+    // }).catchError((error){
+    //   debugPrint(error.toString());
+    // });
 
     ///Now Playing Movies from database
     mMovieModel.getNowPlayingMoviesFromDatabase()
-        ?.then((movieList){
+        ?.listen((movieList){
       setState(() {
         mNowPlayingMovieList = movieList;
       });
-    }).catchError((error){
+    }).onError((error){
       debugPrint(error.toString());
     });
 
-    ///Popular movie for banner
-    mMovieModel.getPopularMovie(1)
-        ?.then((movieList){
-      setState(() {
-        mPopularMoviesList = movieList;
-      });
-    }).catchError((error){
-      debugPrint(error.toString());
-    });
+    // ///Popular movie for banner
+    // mMovieModel.getPopularMovie(1)
+    //     ?.then((movieList){
+    //   setState(() {
+    //     mPopularMoviesList = movieList;
+    //   });
+    // }).catchError((error){
+    //   debugPrint(error.toString());
+    // });
 
     ///Popular movie for banner from database
     mMovieModel.getPopularMovieFromDatabase()
-        ?.then((movieList){
+        ?.listen((movieList){
       setState(() {
         mPopularMoviesList = movieList;
       });
-    }).catchError((error){
+    }).onError((error){
       debugPrint(error.toString());
     });
 
@@ -101,23 +101,23 @@ class _HomePageState extends State<HomePage> {
       debugPrint(error.toString());
     });
 
-    ///Showcase
-    mMovieModel.getTopRatedMovies(1)
-        ?.then((movieList){
-      setState(() {
-        mShowCaseMovieList = movieList;
-      });
-    }).catchError((error){
-      debugPrint(error.toString());
-    });
+    // ///Showcase
+    // mMovieModel.getTopRatedMovies(1)
+    //     ?.then((movieList){
+    //   setState(() {
+    //     mShowCaseMovieList = movieList;
+    //   });
+    // }).catchError((error){
+    //   debugPrint(error.toString());
+    // });
 
     ///Showcase from database
     mMovieModel.getTopRatedMoviesFromDatabase()
-        ?.then((movieList){
+        ?.listen((movieList){
       setState(() {
         mShowCaseMovieList = movieList;
       });
-    }).catchError((error){
+    }).onError((error){
       debugPrint(error.toString());
     });
 
