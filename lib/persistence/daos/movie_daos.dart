@@ -53,9 +53,9 @@ class MovieDao{
   }
 
   List<MovieVO> getNowPlayingMovies(){
-    if(getAllMovies()!=null && (getAllMovies()?.isNotEmpty ?? false)){
+    if(getAllMovies()!=null && (getAllMovies().isNotEmpty ?? false)){
       return getAllMovies()
-          .where((element) => element.isNowPlaying ?? false)
+          .where((element) => element?.isNowPlaying ?? false)
           .toList();
     }else {
       return[];
@@ -63,9 +63,9 @@ class MovieDao{
   }
 
   List<MovieVO> getPopularMovie(){
-    if(getAllMovies()!=null && (getAllMovies()?.isNotEmpty ?? false)){
+    if(getAllMovies()!=null && (getAllMovies().isNotEmpty ?? false)){
       return getAllMovies()
-          .where((element) => element.isPopular ?? false)
+          .where((element) => element?.isPopular ?? false)
           .toList();
     }else {
       return[];
@@ -73,9 +73,9 @@ class MovieDao{
   }
 
   List<MovieVO> getTopRatedMovies(){
-    if(getAllMovies() !=null && (getAllMovies()?.isNotEmpty ?? false)){
+    if(getAllMovies() !=null && (getAllMovies().isNotEmpty ?? false)){
       return getAllMovies()
-          .where((element) => element.isTopRated ?? false)
+          .where((element) => element?.isTopRated ?? false)
           .toList();
     }else {
       return[];
