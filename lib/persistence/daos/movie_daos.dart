@@ -21,7 +21,7 @@ class MovieDao{
     return getMovieBox().put(movie.id, movie);
   }
 
-  List<MovieVO> getAllMovies(){
+  List<MovieVO>? getAllMovies(){
     return getMovieBox().values.toList();
 
   }
@@ -36,47 +36,47 @@ class MovieDao{
 
   Stream<List<MovieVO>> getNowPlayingMoviesStream(){
     return Stream.value(getAllMovies()
-        .where((element) => element.isNowPlaying ?? false)
-        .toList());
+        ?.where((element) => element.isNowPlaying ?? false)
+        .toList() ?? []);
   }
 
   Stream<List<MovieVO>> getPopularMoviesStream(){
     return Stream.value(getAllMovies()
-        .where((element) => element.isPopular ?? false)
-        .toList());
+        ?.where((element) => element.isPopular ?? false)
+        .toList() ?? []);
   }
 
   Stream<List<MovieVO>> getTopRatedMoviesStream(){
     return Stream.value(getAllMovies()
-        .where((element) => element.isTopRated ?? false)
-        .toList());
+        ?.where((element) => element.isTopRated ?? false)
+        .toList() ?? []) ;
   }
 
   List<MovieVO> getNowPlayingMovies(){
-    if(getAllMovies()!=null && (getAllMovies().isNotEmpty ?? false)){
+    if(getAllMovies()!=null && (getAllMovies()?.isNotEmpty ?? false)){
       return getAllMovies()
-          .where((element) => element?.isNowPlaying ?? false)
-          .toList();
+          ?.where((element) => element.isNowPlaying ?? false)
+          .toList() ?? [];
     }else {
       return[];
     }
   }
 
   List<MovieVO> getPopularMovie(){
-    if(getAllMovies()!=null && (getAllMovies().isNotEmpty ?? false)){
+    if(getAllMovies()!=null && (getAllMovies()?.isNotEmpty ?? false)){
       return getAllMovies()
-          .where((element) => element?.isPopular ?? false)
-          .toList();
+          ?.where((element) => element.isPopular ?? false)
+          .toList() ?? [];
     }else {
       return[];
     }
   }
 
   List<MovieVO> getTopRatedMovies(){
-    if(getAllMovies() !=null && (getAllMovies().isNotEmpty ?? false)){
+    if(getAllMovies() !=null && (getAllMovies()?.isNotEmpty ?? false)){
       return getAllMovies()
-          .where((element) => element?.isTopRated ?? false)
-          .toList();
+          ?.where((element) => element.isTopRated ?? false)
+          .toList() ?? [];
     }else {
       return[];
     }
