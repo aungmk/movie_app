@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:movie_app/data.vos/actor_vo.dart';
 import 'package:movie_app/data.vos/genre_vo.dart';
+import 'package:movie_app/data.vos/models/movie_model_impl.dart';
 import 'package:movie_app/data.vos/movie_vo.dart';
 //import 'package:movie_app/network/retrofit_data_agent_impl.dart';
 import 'package:movie_app/pages/home_page.dart';
 import 'package:movie_app/persistence/hive_constants.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import 'data.vos/base_actor_vo.dart';
 import 'data.vos/collection_vo.dart';
@@ -46,24 +48,27 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+    return ScopedModel(
+      model: MovieModelImpl(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          // This is the theme of your application.
+          //
+          // Try running your application with "flutter run". You'll see the
+          // application has a blue toolbar. Then, without quitting the app, try
+          // changing the primarySwatch below to Colors.green and then invoke
+          // "hot reload" (press "r" in the console where you ran "flutter run",
+          // or simply save your changes to "hot reload" in a Flutter IDE).
+          // Notice that the counter didn't reset back to zero; the application
+          // is not restarted.
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
 
-      home: HomePage(),
+        home: HomePage(),
+      ),
     );
   }
 }
