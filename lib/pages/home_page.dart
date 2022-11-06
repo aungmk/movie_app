@@ -62,7 +62,7 @@ class HomePage extends StatelessWidget {
               ScopedModelDescendant<MovieModelImpl>(
                 builder: (BuildContext context, Widget? child, MovieModelImpl model) {
                   return BestPopularMoviesAndSerialsSectionView(
-                          (movieId) => _navigateToMovieDetailScreen(context,movieId),
+                          (movieId) => _navigateToMovieDetailScreen(context,movieId, model),
                       model.mNowPlayingMovieList
                   );
                 },
@@ -74,7 +74,7 @@ class HomePage extends StatelessWidget {
                 builder: (BuildContext context, Widget? child, MovieModelImpl model) {
                   return GenreSectionView(
                     genreList: model.mGenreList,
-                    onTapMovie: (movieId) => _navigateToMovieDetailScreen(context,movieId),
+                    onTapMovie: (movieId) => _navigateToMovieDetailScreen(context,movieId,model),
                     onTapGenre: (genreId) => model.getMoviesByGenre(genreId),
                     mMoviesByGenreList: model.mMoviesByGenreList,
                   );
@@ -104,9 +104,12 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  void _navigateToMovieDetailScreen(BuildContext context, int movieId) {
+  void _navigateToMovieDetailScreen(BuildContext context, int movieId, MovieModelImpl model,) {
+    model.getMovieDetails(movieId);
+    model.getMovieDetailsFromDatabase(movieId);
+    model.getCreditsByMovie(movieId);
     Navigator.push(context, MaterialPageRoute(
-        builder: (context) => MovieDetailPage(movieId)
+        builder: (context) => MovieDetailPage()
     ),
     );
   }

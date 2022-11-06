@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:movie_app/data.vos/actor_vo.dart';
 import 'package:movie_app/data.vos/credit_vo.dart';
 import 'package:movie_app/data.vos/genre_vo.dart';
@@ -45,6 +44,11 @@ class MovieModelImpl extends MovieModel{
   List<ActorVO>? mActors;
   List<MovieVO>? mShowCaseMovieList;
   List<MovieVO>? mMoviesByGenreList;
+
+  ///Movie detail page state
+  MovieVO? mMovie;
+  List<CreditVO>? mActorsList;
+  List<CreditVO>? mCreatorsList;
 
 
   //Network
@@ -101,7 +105,7 @@ class MovieModelImpl extends MovieModel{
     mDataAgent.getGenres()?.then((genres) async {
       mGenreDao.saveAllGenre(genres);
       mGenreList=genres;
-      getMoviesByGenre(genres?.first.id ?? 0);
+      getMoviesByGenre(genres.first.id ?? 0);
       notifyListeners();
       return Future.value(genres);
     });
@@ -127,14 +131,23 @@ class MovieModelImpl extends MovieModel{
   }
 
   @override
-  Future<List<CreditVO>>? getCreditsByMovie(int movieId) {
-    return mDataAgent.getCreditsByMovie(movieId);
+  void getCreditsByMovie(int movieId) {
+    mDataAgent.getCreditsByMovie(movieId)
+        ?.then((creditsList) {
+      this.mActorsList =
+          creditsList.where((credit) => credit.isActor()).toList();
+      this.mCreatorsList =
+          creditsList.where((credit) => credit.isCreator()).toList();
+      notifyListeners();
+    });
   }
 
   @override
-  Future<MovieVO>? getMovieDetails(int movieId) {
-    return mDataAgent.getMovieDetails(movieId)?.then((movie) async {
+  void getMovieDetails(int movieId) {
+    mDataAgent.getMovieDetails(movieId)?.then((movie) async {
       mMovieDao.saveSingleMovie(movie);
+      mMovie=movie;
+      notifyListeners();
       return Future.value(movie);
     });
   }
@@ -154,8 +167,9 @@ class MovieModelImpl extends MovieModel{
   }
 
   @override
-  Future<MovieVO>? getMovieDetailsFromDatabase(int movieId) {
-    return Future.value(mMovieDao.getMovieById(movieId));
+  void getMovieDetailsFromDatabase(int movieId) {
+    mMovie=mMovieDao.getMovieById(movieId);
+    notifyListeners();
   }
 
   @override
