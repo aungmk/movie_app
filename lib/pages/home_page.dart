@@ -30,17 +30,11 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  // void _getMovieByGenreAndRefresh(int genreId) {
-  //   debugPrint("log $genreId");
-  //   mMovieModel.getMoviesByGenre(genreId)
-  //       ?.then((moviesByGenre){
-  //     setState(() {
-  //       mMoviesByGenreList = moviesByGenre;
-  //     });
-  //   }).catchError((error){
-  //     debugPrint(error.toString());
-  //   });
-  // }
+  @override
+  void dispose(){
+    _bloc.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
