@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:movie_app/data.vos/actor_vo.dart';
 import 'package:movie_app/data.vos/credit_vo.dart';
 import 'package:movie_app/data.vos/genre_vo.dart';
@@ -127,30 +126,33 @@ class MovieModelImpl extends MovieModel{
   }
 
   @override
-  Stream<List<MovieVO>>? getNowPlayingMoviesFromDatabase() {
+  Future<List<MovieVO>>? getNowPlayingMoviesFromDatabase() {
     this.getNowPlayingMovies(1);
     return mMovieDao
         .getAllMoviesEventStream()
-        .startWith(mMovieDao.getNowPlayingMoviesStream())
-        .map((event) => mMovieDao.getNowPlayingMovies());
+        .combineLatest(mMovieDao.getNowPlayingMoviesStream(),
+            (event, movieList) => movieList as List<MovieVO>)
+        .first;
   }
 
   @override
-  Stream<List<MovieVO>>? getPopularMovieFromDatabase() {
+  Future<List<MovieVO>>? getPopularMovieFromDatabase() {
     this.getPopularMovie(1);
     return mMovieDao
         .getAllMoviesEventStream()
-        .startWith(mMovieDao.getPopularMoviesStream())
-        .map((event) => mMovieDao.getNowPlayingMovies());
+        .combineLatest(mMovieDao.getPopularMoviesStream(),
+            (event, movieList) => movieList as List<MovieVO>)
+        .first;
   }
 
   @override
-  Stream<List<MovieVO>>? getTopRatedMoviesFromDatabase() {
+  Future<List<MovieVO>>? getTopRatedMoviesFromDatabase() {
     this.getTopRatedMovies(1);
     return mMovieDao
         .getAllMoviesEventStream()
-        .startWith(mMovieDao.getTopRatedMoviesStream())
-        .map((event) => mMovieDao.getNowPlayingMovies());
+        .combineLatest(mMovieDao.getPopularMoviesStream(),
+            (event, movieList) => movieList as List<MovieVO>)
+        .first;
   }
 
 }
