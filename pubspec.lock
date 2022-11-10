@@ -494,6 +494,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.1.2"
+  selector:
+    dependency: "direct main"
+    description:
+      name: selector
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   shelf:
     dependency: transitive
     description:
