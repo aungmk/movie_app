@@ -14,6 +14,9 @@ class HomeBloc extends ChangeNotifier{
   List<MovieVO>? mShowCaseMovieList;
   List<MovieVO>? mMoviesByGenreList;
 
+  ///Page
+  int pageForNowPlayingMovie=1;
+
 
   ///Models
   MovieModel mMovieModel = MovieModelImpl();
@@ -93,6 +96,10 @@ class HomeBloc extends ChangeNotifier{
     });
   }
 
+  void onNowPlayingMovieListEndReached(){
+    this.pageForNowPlayingMovie +=1;
+    mMovieModel.getNowPlayingMovies(pageForNowPlayingMovie);
+  }
 // void dispose(){
 //   mNowPlayingStreamController?.close();
 //   mPopularMoviesListStreamController?.close();
@@ -101,4 +108,5 @@ class HomeBloc extends ChangeNotifier{
 //   mShowCaseMovieListStreamController?.close();
 //   mMoviesByGenreListStreamController?.close();
 // }
+
 }

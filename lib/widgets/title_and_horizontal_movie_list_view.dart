@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_app/components/smart_list_view.dart';
 import 'package:movie_app/widgets/title_text.dart';
 
 import '../data.vos/movie_vo.dart';
@@ -59,10 +61,22 @@ class HorizontalMoviesListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MOVIE_LIST_HEIGHT,
-      child: (movieList != null) ? ListView.builder(
-        scrollDirection: Axis.horizontal,
+      child: (movieList != null)
+        //   ? ListView.builder(
+        // scrollDirection: Axis.horizontal,
+        // padding: EdgeInsets.only(left: MARGIN_MEDIUM_2),
+        // itemCount: movieList?.length,
+        // itemBuilder: (BuildContext context, int index) {
+        //   return MovieView(
+        //           (movieId) {
+        //         onTapMovie(movieId);
+        //       },
+        //       movieList![index],
+        //   );
+        // },
+      ? SmartHorizontalListView(
         padding: EdgeInsets.only(left: MARGIN_MEDIUM_2),
-        itemCount: movieList?.length,
+        itemCount: movieList?.length ??0,
         itemBuilder: (BuildContext context, int index) {
           return MovieView(
                   (movieId) {
@@ -70,6 +84,9 @@ class HorizontalMoviesListView extends StatelessWidget {
               },
               movieList![index],
           );
+        },
+        onListEndReached: () {
+          this.onListEndReached();
         },
       ) : Center(child: CircularProgressIndicator()),
     );

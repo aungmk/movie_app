@@ -70,9 +70,9 @@ class HomePage extends StatelessWidget {
                           nowPlayingMovieList,
                       title: BEST_POPULAR_MOVIES_AND_SERIALS,
                       onListEndReached: (){
-                        // var bloc = Provider.of<HomeBloc>(
-                        // context,listen: false);
-                        // bloc.onNowPlayingMovieListEndReached();
+                        var bloc = Provider.of<HomeBloc>(
+                        context,listen: false);
+                        bloc.onNowPlayingMovieListEndReached();
                         },
                         ),
                     ),
